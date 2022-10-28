@@ -1,6 +1,7 @@
 const execSync = require('child_process').execSync;
 const core = require('@actions/core');
 const ssm = require('./ssm-helper');
+import {appendFileSync, existsSync, writeFileSync} from 'fs'
 
 async function run_action()
 {
@@ -8,6 +9,7 @@ async function run_action()
     {
         const ssmPath = core.getInput('ssm-path', { required: true });
         const prefix = core.getInput('prefix');
+        const output = core.getInput('output')
         const region = process.env.AWS_DEFAULT_REGION;
         const decryption = core.getInput('decryption') === 'true';
 
@@ -20,6 +22,13 @@ async function run_action()
             for (var key in parsedValue)
             {
                 setEnvironmentVar(prefix + key, parsedValue[key])
+                if (existsSync(output)) {
+                    console.log(`append to ${output} file`)
+                    appendFileSync(output, '\n' + envs.join('\n'))
+                  } else {
+                    console.log(`create ${output} file`)
+                    writeFileSync(output, envs.join('\n'))
+                  }
             }
         }
         else

@@ -14,6 +14,9 @@ inputs:
   decryption:
     description: 'Whether the parameter must be decrypted or not'
     required: false
+  output:
+    description: 'Output file'
+    required: true
 runs:
   using: 'node12'
   main: 'index.js'
