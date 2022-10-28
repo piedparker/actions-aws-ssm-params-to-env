@@ -9,7 +9,7 @@ async function run_action()
     {
         const ssmPath = core.getInput('ssm-path', { required: true });
         const prefix = core.getInput('prefix');
-        const output = core.getInput('output')
+        const output = core.getInput('output') === '.env';
         const region = process.env.AWS_DEFAULT_REGION;
         const decryption = core.getInput('decryption') === 'true';
 
