@@ -22,7 +22,7 @@ async function run_action()
             for (var key in parsedValue)
             {
                 setEnvironmentVar(prefix + key, parsedValue[key])
-                const new_var = [prefix + key,'=',parsedValue[key],'\n'].join('')
+                const new_var = [prefix + key,'="',parsedValue[key],'"\n'].join('')
                 if (existsSync(output)) {
                     console.log(`append to ${output} file`)
                     appendFileSync(output, new_var)
