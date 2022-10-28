@@ -1,7 +1,7 @@
 const execSync = require('child_process').execSync;
 const core = require('@actions/core');
 const ssm = require('./ssm-helper');
-import {appendFileSync, existsSync, writeFileSync} from 'fs'
+const {appendFileSync, existsSync, writeFileSync} = require('fs');
 
 async function run_action()
 {
