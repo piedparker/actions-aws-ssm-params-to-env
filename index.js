@@ -9,7 +9,7 @@ async function run_action()
     {
         const ssmPath = core.getInput('ssm-path', { required: true });
         const prefix = core.getInput('prefix');
-        const output = core.getInput('output') === '.env';
+        const output = core.getInput('output', { required: true }) 
         const region = process.env.AWS_DEFAULT_REGION;
         const decryption = core.getInput('decryption') === 'true';
 
@@ -22,7 +22,7 @@ async function run_action()
             for (var key in parsedValue)
             {
                 setEnvironmentVar(prefix + key, parsedValue[key])
-                const new_var = prefix + key+'='+parsedValue[key]+'\n'
+                const new_var = [prefix + key,'=',parsedValue[key],'\n'].join('')
                 if (existsSync(output)) {
                     console.log(`append to ${output} file`)
                     appendFileSync(output, new_var)
