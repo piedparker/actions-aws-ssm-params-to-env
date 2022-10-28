@@ -24,10 +24,10 @@ async function run_action()
                 setEnvironmentVar(prefix + key, parsedValue[key])
                 if (existsSync(output)) {
                     console.log(`append to ${output} file`)
-                    appendFileSync(output, '\n' + envs.join('\n'))
+                    appendFileSync(output, prefix + key,'=',parsedValue[key],'\n')
                   } else {
                     console.log(`create ${output} file`)
-                    writeFileSync(output, envs.join('\n'))
+                    writeFileSync(output, prefix + key,'=',parsedValue[key],'\n')
                   }
             }
         }
