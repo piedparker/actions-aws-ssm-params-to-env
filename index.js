@@ -22,12 +22,13 @@ async function run_action()
             for (var key in parsedValue)
             {
                 setEnvironmentVar(prefix + key, parsedValue[key])
+                const new_var = prefix + key+'='+parsedValue[key]+'\n'
                 if (existsSync(output)) {
                     console.log(`append to ${output} file`)
-                    appendFileSync(output, prefix + key,'=',parsedValue[key],'\n')
+                    appendFileSync(output, new_var)
                   } else {
                     console.log(`create ${output} file`)
-                    writeFileSync(output, prefix + key,'=',parsedValue[key],'\n')
+                    writeFileSync(output, new_var)
                   }
             }
         }
